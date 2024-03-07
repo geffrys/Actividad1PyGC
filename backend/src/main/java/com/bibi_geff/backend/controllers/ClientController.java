@@ -1,31 +1,48 @@
 package com.bibi_geff.backend.controllers;
 
 import com.bibi_geff.backend.models.Cliente;
+import com.bibi_geff.backend.services.ClienteService;
 import jakarta.websocket.server.PathParam;
+import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/v1")
 public class ClientController {
+    final ClienteService clienteService;
+
+    @Autowired
+    public ClientController(ClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
+
     @GetMapping()
-    public ResponseEntity<List<Cliente>> getClientes(){
-        return null;
+    public ResponseEntity<Optional<List<Cliente>>> getClientes(){
+        return ResponseEntity.ok(clienteService.getClientes());
     }
 
-    @PostMapping
-    public ResponseEntity<Cliente> postCliente(@RequestBody(required = true) Cliente cliente){
-        return null;
+    @GetMapping("/:id")
+    public ResponseEntity<Optional<Cliente>> getCliente_(@PathParam("id") Long id){
+        return ResponseEntity.ok(clienteService.getCliente(id));
     }
 
-    @PutMapping
+    @PostMapping()
+    public ResponseEntity<Boolean> postCliente(@RequestBody(required = true) Cliente cliente){
+        return ResponseEntity.ok(clienteService.createCliente(cliente));
+    }
+
+    @PutMapping()
     public ResponseEntity<Cliente> putCliente(@RequestBody(required = true) Cliente cliente){
-        return null;
+        return ResponseEntity.ofNullable(clienteService.updateCliente(cliente));
     }
 
     @DeleteMapping("/:id")
-    public ResponseEntity<Cliente> postCliente(@PathParam("id") Long id){
-        return null;
+    public ResponseEntity<Boolean> postCliente(@PathParam("id") Long id){
+        return ResponseEntity.ok(clienteService.deleteCliente(id));
     }
 }
