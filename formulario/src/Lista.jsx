@@ -48,12 +48,13 @@ function Listado({usuario,setUsuario}) {
                     <thead className="encabezadoTablaDatos">
                         <tr>
                             <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
+                            <th>Cédula</th>
+                            <th>Primer Nombre</th>
+                            <th>Segundo Nombre</th>
+                            <th>Sexo</th>
                             <th>Edad</th>
                             <th>Email</th>
-                            <th>Direccion</th>
-                            <th>sexo</th>
+                            <th>Dirección</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -63,12 +64,13 @@ function Listado({usuario,setUsuario}) {
                             return (
                                 <tr key={cliente.id}>
                                     <td>{cliente.id}</td>
+                                    <td>{cliente.cedula}</td>
                                     <td>{cliente.primerNombre}</td>
                                     <td>{cliente.segundoNombre}</td>
+                                    <td>{cliente.sexo}</td>
                                     <td>{cliente.edad}</td>
                                     <td>{cliente.email}</td>
                                     <td>{cliente.direccion}</td>
-                                    <td>{cliente.sexo}</td>
                                     <td>
                                         <button onClick={()=> actualizarCliente(cliente)}>Editar</button>
                                         <button onClick={() => eliminarCliente(cliente.id)}>Eliminar</button>

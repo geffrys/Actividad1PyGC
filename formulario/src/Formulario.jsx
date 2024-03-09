@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useForm } from 'React-hook-form'
 import './Formulario.css'
 import axios from 'axios';
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 
 function Formulario({ usuario , setUsuario }) {
 
@@ -67,7 +67,7 @@ function Formulario({ usuario , setUsuario }) {
                     </div>
 
                     <div className='formGroup'>
-                        <label htmlFor="">Nombre</label>
+                        <label htmlFor="">Primer nombre</label>
                         <input type="text" name="" id="" {...register('primerNombre', { required: 'El nombre es un campo requerido.' })} />
                         {errors.primerNombre && <label htmlFor="" className='errorLabel'>{errors.primerNombre.message}</label>}
                     </div>
@@ -119,9 +119,6 @@ function Formulario({ usuario , setUsuario }) {
     )
 }
 
-Formulario.propTypes = {
-    cliente: PropTypes.object,
-    setCliente: PropTypes.func
-};
+
 
 export default Formulario;
