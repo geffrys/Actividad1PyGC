@@ -22,5 +22,7 @@ public class Cliente {
     Integer edad;
     @Column(nullable = false, length = 30)
     String email;
+    @Column(nullable = false, length = 30)
+    String direccion;
 
 }

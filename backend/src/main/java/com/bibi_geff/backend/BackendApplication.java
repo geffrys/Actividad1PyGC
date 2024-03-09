@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories
-@EntityScan("com.bibi_geff.backend.entities")
 public class BackendApplication {
 
 	public static void main(String[] args) {

@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ClientController {
     final ClienteService clienteService;
 
@@ -21,28 +22,28 @@ public class ClientController {
         this.clienteService = clienteService;
     }
 
-    @GetMapping()
+    @GetMapping("/cliente")
     public ResponseEntity<Optional<List<Cliente>>> getClientes(){
         return ResponseEntity.ok(clienteService.getClientes());
     }
 
-    @GetMapping("/:id")
+    @GetMapping("/cliente/:id")
     public ResponseEntity<Optional<Cliente>> getCliente_(@PathParam("id") Long id){
         return ResponseEntity.ok(clienteService.getCliente(id));
     }
 
-    @PostMapping()
+    @PostMapping("/cliente")
     public ResponseEntity<Boolean> postCliente(@RequestBody(required = true) Cliente cliente){
         return ResponseEntity.ok(clienteService.createCliente(cliente));
     }
 
-    @PutMapping()
+    @PutMapping("/cliente")
     public ResponseEntity<Cliente> putCliente(@RequestBody(required = true) Cliente cliente){
         return ResponseEntity.ofNullable(clienteService.updateCliente(cliente));
     }
 
-    @DeleteMapping("/:id")
-    public ResponseEntity<Boolean> postCliente(@PathParam("id") Long id){
+    @DeleteMapping("/cliente/{id}")
+    public ResponseEntity<Boolean> postCliente(@PathVariable Long id){
         return ResponseEntity.ok(clienteService.deleteCliente(id));
     }
 }
