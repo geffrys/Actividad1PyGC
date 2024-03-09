@@ -4,7 +4,9 @@ import './Formulario.css'
 import axios from 'axios';
 import { useEffect } from 'react';
 
-function Formulario({ usuario , setUsuario }) {
+function Formulario({ usuario, setUsuario }) {
+
+    const EDAD_MAXIMA = 80;
 
 
     const handleKeyDown = (event) => {
@@ -45,7 +47,7 @@ function Formulario({ usuario , setUsuario }) {
         axios.post('http://localhost:5000/api/v1/cliente', data)
             .then(response => {
                 alert('Cliente registrado con exito ' + response.data)
-                setUsuario({data})
+                setUsuario({ data })
                 setUsuario({})
             })
             .catch(error => {
@@ -68,13 +70,13 @@ function Formulario({ usuario , setUsuario }) {
 
                     <div className='formGroup'>
                         <label htmlFor="">Primer nombre</label>
-                        <input type="text" name="" id="" {...register('primerNombre', { required: 'El nombre es un campo requerido.' })} />
+                        <input type="text" name="" id="" {...register('primerNombre', { required: 'El nombre es un campo requerido.' })} maxLength={30} />
                         {errors.primerNombre && <label htmlFor="" className='errorLabel'>{errors.primerNombre.message}</label>}
                     </div>
 
                     <div className='formGroup'>
                         <label htmlFor="">Segundo nombre</label>
-                        <input type="text" name="" id="" {...register('segundoNombre')} />
+                        <input type="text" name="" id="" {...register('segundoNombre')} maxLength={30} />
                         {errors.segundoNombre && <label htmlFor="" className='errorLabel'>{errors.segundoNombre.message}</label>}
                     </div>
 
@@ -90,7 +92,12 @@ function Formulario({ usuario , setUsuario }) {
 
                     <div className='formGroup'>
                         <label htmlFor="edad">Edad</label>
-                        <input onKeyDown={handleKeyDown} type="text" name="" id="edad" {...register('edad', { required: 'La edad es un campo requerido.', pattern: { value: /^[0-9]+$/, message: 'Ingresa una edad valida.' } })} maxLength={3} />
+                        <input onKeyDown={handleKeyDown} type="text" name="" id="edad" {...register('edad', {
+                            required: 'La edad es un campo requerido.', pattern: { value: /^[0-9]+$/, message: 'Ingresa una edad valida.' }, validate: {
+                                max: value => parseInt(value) <= EDAD_MAXIMA || `La edad debe ser menor o igual a ${EDAD_MAXIMA}`,
+                                min: value => parseInt(value) >= 0 || "La edad debe ser mayor o igual a 0"
+                            }
+                        })} maxLength={3} />
                         {errors.edad && <label htmlFor="" className='errorLabel'>{errors.edad.message}</label>}
                     </div>
 
